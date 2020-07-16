@@ -1,12 +1,10 @@
-<?php include "includes/header.php" ?>
+<?php include "includes/admin-header.php" ?>
 
 <body>
     <div id="wrapper">
         <!-- Navigation -->
-        <?php include "includes/navigation.php" ?>
-
+        <?php include "includes/admin-navigation.php" ?>
         <div id="page-wrapper">
-
             <div class="container-fluid">
 
                 <!-- Page Heading -->
@@ -28,4 +26,4 @@
 
     </div>
     <!-- /#wrapper -->
-<?php include "includes/footer.php" ?>
+<?php include "includes/admin-footer.php" ?>

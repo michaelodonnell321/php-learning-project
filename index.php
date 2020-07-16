@@ -13,8 +13,8 @@
             <!-- Blog Entries Column -->
             <div class="col-md-8">
             <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
+                    Play with PHP
+                    <small>It is fun</small>
                 </h1>
                 <?php 
                     $query = 'SELECT * FROM posts';

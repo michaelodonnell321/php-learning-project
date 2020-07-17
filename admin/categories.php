@@ -19,34 +19,32 @@
                         <!-- add category form -->
                         <div class="col-xs-6">
                         <?php 
-                            if(isset($_POST['submit'])) {
-                                $title = $_POST['categoryTitle'];
-
-                                if($title == "" || empty($title)) {
-                                    echo "<script type='text/javascript'>alert('Cannot add blank category');</script>";
-                                } else {
-                                $query = "INSERT INTO categories(title) VALUE ('{$title}') ";
-
-                                $createCategoryQuery = mysqli_query($connection,$query);
-
-                                    if(!$createCategoryQuery) {
-                                        die(mysqli_error($connection));
-                                    }
-                                }
-                                $title = '';
-                            }
+                            insertCategories();
                         ?>
                             <form action="" method="post">
-                            <div class="form-group">
-                                <label for="title">Category To Add</label>
-                                <input class="form-control" type="text" name="categoryTitle">
-                            </div>
-                            <div class="form-group">
-                                <input class="btn btn-primary" type="submit" name="submit" value="Add Category">
-                            </div>
+                                <div class="form-group">
+                                    <label for="title">Category To Add</label>
+                                    <input class="form-control" type="text" name="categoryTitle">
+                                </div>
+                                <div class="form-group">
+                                    <input class="btn btn-primary" type="submit" name="addCategory" value="Add Category">
+                                </div>
                             </form>
+                            <?php 
+                                if(isset($_GET['editCategory'])) {
+                                    include "includes/editCategories.php";
+                                }
+                             ?>
                         </div>
                         <div class="col-xs-6" style="max-height: 215px; overflow: scroll;">
+<?php 
+    // edit category query
+    if(isset($_POST['editCategory'])) {
+        $editCategoryId = $_POST['editCategory'];
+        $query = "UPDATE categories SET title = ${editCategory}WHERE id={$editCategoryId}";
+        $editCategoryQuery = mysqli_query($connection,$query);
+    }
+?>
 <?php
     // find all categories query
     $query = "SELECT * FROM categories";
@@ -57,7 +55,8 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Category Title</th>
-                                    <th></th>
+                                    <th></th> <!-- delete -->
+                                    <th></th> <!-- edit -->
                                 </tr>
                             </thead>
                             <tbody class="overflow-auto">
@@ -70,6 +69,7 @@
         echo "<td>{$categoryTitle}</td>";
         // using js to confirm delete
         echo "<td><a onClick=\"javascript: return confirm('This will delete this category forever, are you sure?');\" href='categories.php?delete={$categoryId}'>Delete</a></td>";
+        echo "<td><a href='editCategories.php?update={$categoryId}'>Edit</a></td>";
         echo "</tr>";
     }
 ?>
